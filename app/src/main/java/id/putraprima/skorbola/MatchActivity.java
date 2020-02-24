@@ -18,6 +18,11 @@ public class MatchActivity extends AppCompatActivity {
     private TextView awayScore;
     private ImageView homeLogo;
     private  ImageView awayLogo;
+    private int home_score =0;
+    private int away_score =0;
+    private String winner;
+
+
 
 
     @Override
@@ -34,12 +39,13 @@ public class MatchActivity extends AppCompatActivity {
         homeLogo = findViewById(R.id.home_logo);
 
         Bundle extras = getIntent().getExtras();
+
         if(extras != null){
             Model model = extras.getParcelable(MainActivity.USER_KEY);
             homeName.setText(model.getHomeName());
             awayName.setText(model.getAwayName());
-//            homeScore.setText(model.getHomeScore());
-//            awayScore.setText(model.getAwayScore());
+            homeScore.setText(String.valueOf(model.getHomeScore()));
+            awayScore.setText(String.valueOf(model.getAwayScore()));
             Bitmap bmp = BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra("homeLogo"), 0, getIntent().getByteArrayExtra("homeLogo").length);
             homeLogo.setImageBitmap(bmp);
             Bitmap bmpAway = BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra("awayLogo"), 0, getIntent().getByteArrayExtra("awayLogo").length);
@@ -52,12 +58,29 @@ public class MatchActivity extends AppCompatActivity {
     }
 
     public void handleAddHomeScore(View view) {
+        //set nilai homescore
+        home_score++;
+        //set di view
+        homeScore.setText(String.valueOf(home_score));
 
     }
 
     public void handleAddAwayScore(View view) {
+        //set nilai homescore
+        away_score++;
+        //set di view
+        awayScore.setText(String.valueOf(away_score));
     }
 
     public void handleCekHasil(View view) {
+        if(home_score>away_score){
+            this.winner= homeName.getText().toString();
+        }
+        else if(home_score<away_score){
+            this.winner=awayName.getText().toString();
+        }
+        else if(home_score==away_score){
+            winner="Draw";
+        }
     }
 }

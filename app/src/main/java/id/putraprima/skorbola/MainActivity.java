@@ -117,8 +117,9 @@ public class MainActivity extends AppCompatActivity implements Validator.Validat
     @Override
     public void onValidationSucceeded() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
         bitmapAway.compress(Bitmap.CompressFormat.PNG, 50, baos);
-        bmpHome.compress(Bitmap.CompressFormat.PNG, 50, baos);
+        bmpHome.compress(Bitmap.CompressFormat.PNG, 50, baos2);
 
 //        Model model = new Model(homeName.getText().toString(),
 //                                awayName.getText().toString());
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements Validator.Validat
                 awayName.getText().toString()));
 
         intent.putExtra("homeLogo",baos.toByteArray());
-        intent.putExtra("awayLogo",baos.toByteArray());
+        intent.putExtra("awayLogo",baos2.toByteArray());
         startActivity(intent);
 
 

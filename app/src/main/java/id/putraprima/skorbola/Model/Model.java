@@ -9,6 +9,15 @@ public class Model implements Parcelable {
     private String awayName;
     private int homeScore;
     private int awayScore;
+    private String winner;
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
 
     public Model(String homeName, String awayName) {
         this.homeName = homeName;

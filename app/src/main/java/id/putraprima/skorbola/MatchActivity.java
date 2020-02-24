@@ -2,6 +2,7 @@ package id.putraprima.skorbola;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ public class MatchActivity extends AppCompatActivity {
     private int away_score =0;
     private String winner;
 
-
+private Model model;
 
 
     @Override
@@ -41,7 +42,7 @@ public class MatchActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if(extras != null){
-            Model model = extras.getParcelable(MainActivity.USER_KEY);
+            model = extras.getParcelable(MainActivity.USER_KEY);
             homeName.setText(model.getHomeName());
             awayName.setText(model.getAwayName());
             homeScore.setText(String.valueOf(model.getHomeScore()));
@@ -72,15 +73,24 @@ public class MatchActivity extends AppCompatActivity {
         awayScore.setText(String.valueOf(away_score));
     }
 
-    public void handleCekHasil(View view) {
+    public String CekHasil(){
+
         if(home_score>away_score){
-            this.winner= homeName.getText().toString();
+            return model.getHomeName();
         }
         else if(home_score<away_score){
-            this.winner=awayName.getText().toString();
+             return model.getAwayName();
         }
         else if(home_score==away_score){
-            winner="Draw";
+           return  "Draw";
         }
+        return null;
+
+    }
+
+    public void handleCekHasil(View view) {
+        Intent intent = new Intent(this, ResultActivity.class );
+        intent.putExtra("winnerName",CekHasil());
+        startActivity(intent);
     }
 }

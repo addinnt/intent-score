@@ -60,7 +60,7 @@ private Model model;
 
     public void handleAddHomeScore(View view) {
         //set nilai homescore
-        home_score++;
+        this.home_score++;
         //set di view
         homeScore.setText(String.valueOf(home_score));
 
@@ -68,29 +68,31 @@ private Model model;
 
     public void handleAddAwayScore(View view) {
         //set nilai homescore
-        away_score++;
+        this.away_score++;
         //set di view
         awayScore.setText(String.valueOf(away_score));
     }
 
-    public String CekHasil(){
-
-        if(home_score>away_score){
-            return model.getHomeName();
-        }
-        else if(home_score<away_score){
-             return model.getAwayName();
-        }
-        else if(home_score==away_score){
-           return  "Draw";
-        }
-        return null;
-
-    }
 
     public void handleCekHasil(View view) {
+
         Intent intent = new Intent(this, ResultActivity.class );
-        intent.putExtra("winnerName",CekHasil());
+
+        intent.putExtra(ResultActivity.EXTRA_RESULT,winner);
+
+        if(home_score>away_score){
+            winner = "The winner is " + homeName.getText().toString();
+            intent.putExtra(ResultActivity.EXTRA_RESULT,winner);
+        }
+        else if(home_score<away_score){
+            winner = "The winner is " + awayName.getText().toString();
+            intent.putExtra(ResultActivity.EXTRA_RESULT,winner);
+        }
+        else if(home_score==away_score){
+            winner = "The result is Draw ";
+            intent.putExtra(ResultActivity.EXTRA_RESULT,winner);
+        }
+
         startActivity(intent);
     }
 }

@@ -2,6 +2,7 @@ package id.putraprima.skorbola;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -9,7 +10,9 @@ import id.putraprima.skorbola.Model.Model;
 
 public class ResultActivity extends AppCompatActivity {
 
-    private TextView winner;
+    private TextView tvwinner;
+    private String winner;
+    public static final String EXTRA_RESULT = "EXTRA_RESULT";
 
 
     @Override
@@ -17,16 +20,11 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         //bind view
-        winner = findViewById(R.id.text_winner);
+        Intent intent = getIntent();
+        winner = intent.getStringExtra(EXTRA_RESULT);
 
-        Bundle extras = getIntent().getExtras();
-
-        if(extras!=null){
-            String model = extras.getParcelable("winnerName");
-            winner.setText(model);
-        }
-
-
+        tvwinner = findViewById(R.id.text_winner);
+        tvwinner.setText(winner);
 
     }
 }
